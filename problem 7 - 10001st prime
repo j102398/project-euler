@@ -1,0 +1,31 @@
+#we are using the property that a prime number is 6n+ 1 or 6n-1
+
+
+prime_counter = 2   #set prime counter to 2 as we have to exclude 2 and 3 to satisfy 6n+1 or 6n-1
+
+
+def prime_number(number):
+    if number <= 1:
+        return False
+    for x in range(2,number):
+        if number % x == 0:
+            return False
+    return True
+
+#set n = 1
+n=1
+while prime_counter != 10001:
+    #test 6n-1
+    if prime_number((6*n)-1) == True:
+        if prime_counter == 10000:
+            print((6*n)-1)
+        prime_counter += 1
+
+    #test 6n-1
+    if prime_number((6*n)+1) == True:
+        if prime_counter == 10000:
+            print((6*n)+1)
+        prime_counter += 1
+
+    n += 1
+print(123)
