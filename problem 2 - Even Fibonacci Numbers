@@ -1,0 +1,13 @@
+#initialise a fibonacci sequence
+fib_sequence = [1,2]#1,2,3,5,...
+even_total = 2 # currently, the sum of all even terms is 2
+while max(fib_sequence) <= 4000000:
+    fib_term = fib_sequence[-2] + fib_sequence[-1]
+    fib_sequence.append(fib_term)
+    if fib_term % 2 == 0:
+        even_total += fib_term
+    else:
+        pass
+
+
+print(even_total)
