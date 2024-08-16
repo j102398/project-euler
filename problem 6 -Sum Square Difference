@@ -1,0 +1,5 @@
+#using standard results
+#sum of numbers to n = 1/2(n)(n+1)
+sum = (1/2) * (100) * (101)
+sum_squared =sum **2
+print(sum_squared-sum)
