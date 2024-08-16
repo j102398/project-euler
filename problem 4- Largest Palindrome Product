@@ -1,0 +1,32 @@
+import time
+
+start_time = time.time()
+def palindrome_test(number):
+    palindrome_status = True # Assume the number to be a palindrome
+    number_str = str(number)
+    number_len = len(number_str)
+    #Work out if it is a palindrome if it has an odd amount of digits
+
+    for index in range(0,int(number_len/2)): #loop up until the index of beyond the midpoint
+            if number_str[index] == number_str[-(index+1)]: #so when index is 0, comparing num[0] to num[-1] and so on
+                continue
+            else:
+                palindrome_status = False
+                break
+
+    return palindrome_status
+
+palindrome_list = []
+
+for first_number in range(100,1000): #looping between all 3 digits ( 100 and 999 inclusive)
+    for second_number in range(100,1000):#looping between all 3 digits ( 100 and 999 inclusive)
+        product = first_number * second_number
+        if palindrome_test(product) == True:
+            palindrome_list.append(product)
+        else:
+            pass
+
+end_time = time.time()
+
+print(max(palindrome_list))
+print(f"Elapsed time: {end_time-start_time}s")
