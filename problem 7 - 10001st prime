@@ -1,32 +1,50 @@
-#takes 24.03575372695923s to execute so quite slow
-#we are using the property that a prime number is 6n+ 1 or 6n-1
+#old method took 24.03575372695923s, this improvemed method takes 1.3051843643188477s
 
 
-prime_counter = 2   #set prime counter to 2 as we have to exclude 2 and 3 to satisfy 6n+1 or 6n-1
+import time
+
+start_time = time.time()
 
 
-def prime_number(number):
-    if number <= 1:
-        return False
-    for x in range(2,number):
-        if number % x == 0:
-            return False
-    return True
+def SieveOfEratosthenes(n):  #used for generating a list of prime numbers up to n
+    # Create a list to store boolean values representing whether each number is prime or not
+    prime_numbers = [True for i in range(n + 1)]
 
-#set n = 1
-n=1
-while prime_counter != 10001:
-    #test 6n-1
-    if prime_number((6*n)-1) == True:
-        if prime_counter == 10000:
-            print((6*n)-1)
-        prime_counter += 1
+    # Mark 0 and 1 as not prime numbers, as they are not
+    prime_numbers[0] = prime_numbers[1] = False
 
-    #test 6n-1
-    if prime_number((6*n)+1) == True:
-        if prime_counter == 10000:
-            print((6*n)+1)
-        prime_counter += 1
+    # Create an empty list to store the prime numbers
+    prime_numbers_list = []
 
-    n += 1
-print(123)
+    # Start looping from 2, the first prime number
+    p = 2
+    while p <= (n ** 0.5):
+        # If the current number is marked as prime
+        if prime_numbers[p] == True:
+            # Add it to the list of prime numbers
+            prime_numbers_list.append(p)
+            # Mark all multiples of p as not prime
+            # Start from p * p, because all smaller multiples would have already been marked by smaller prime numbers
+            # For example, if p is 5, we start from 25, because all smaller multiples like 10, 15, 20 would have been marked by 2, 3, etc.
+            for i in range(p * p, n + 1, p):
+                # Mark i as not prime
+                prime_numbers[i] = False
+        # Move on to the next number
+        p += 1
+
+    # Loop through the remaining numbers to find any additional prime numbers
+    for p in range(int(n ** 0.5) + 1, n + 1):
+        # If the current number is still marked as prime
+        if prime_numbers[p]:
+            # Add it to the list of prime numbers
+            prime_numbers_list.append(p)
+
+    # Return the list of prime numbers
+    return prime_numbers_list
+
+
+#generate a list of primes up to a really big number
+primes = SieveOfEratosthenes(10000000)
+print(primes[10000])
+end_time = time.time()
+print(f"Elapsed time:{end_time-start_time}s")
