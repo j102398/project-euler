@@ -1,0 +1,25 @@
+import time
+
+def divisibility_test(number):
+    evenly_divisible = True
+    for divisor in range(20,0,-1):
+        if number % divisor == 0:
+            continue
+        else:
+            evenly_divisible = False
+            break
+    return evenly_divisible
+
+start_time = time.time()
+
+start_number = 20
+divisibility_status = False
+while divisibility_status == False:
+    if divisibility_test(start_number) == True:
+        print(start_number)
+        break
+    else:
+        start_number += 20
+
+end_time = time.time()
+print(f"Time elapsed:{end_time-start_time}s")
