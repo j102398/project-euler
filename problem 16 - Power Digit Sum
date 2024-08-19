@@ -1,0 +1,9 @@
+#power digit problem
+number = 2**1000
+number_str = str(number)
+
+#loop through the digits of the number, adding them all together
+total = 0
+for digit in number_str:
+    total += int(digit) # remember to convert to an integer as we had to convert to a string to loop through it
+print(total)
