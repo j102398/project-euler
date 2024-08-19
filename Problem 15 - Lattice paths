@@ -1,0 +1,17 @@
+#lattice paths problem
+#no of lattice paths (in a grid that is a x b)
+# (a+b) choose  a
+#or (b +a ) choose b
+
+#mathematical functions
+def ncr(n,r):
+    ncr = ((factorial(n)) / (factorial(r) * factorial(n-r)))
+    return ncr
+
+def factorial(n):
+    sum = 1
+    for number in range(n,1,-1):
+        sum *= number
+    return sum
+
+print(ncr(20+20,20))
