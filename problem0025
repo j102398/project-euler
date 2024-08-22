@@ -1,0 +1,13 @@
+fibonacci_list = [1,1] #initialise a fibonacci sequence, and it always starts with 1 , 1
+index = 2 #we are up to the second term
+last_term = fibonacci_list[-1]
+last_term_len = len(str(last_term))
+
+while last_term_len != 1000:
+    next_term = fibonacci_list[-2] + fibonacci_list[-1] #generate the nex term of the fibonacci sequence
+    fibonacci_list.append(next_term)
+    last_term = fibonacci_list[-1]
+    last_term_len = len(str(last_term)) #work out the length of the last term
+    index += 1
+
+print(index)
