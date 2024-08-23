@@ -1,0 +1,21 @@
+import time
+import statistics
+start_time = time.time()
+
+#a can't be larger than 1000
+solutions = []
+for a in range(1000):
+    for b in range(1000):
+        for c in range(1000):
+            if a + b + c > 1000:
+                pass
+            else:
+                perimeter = a + b + c
+                if (a**2) + (b*2) == c**2:
+                    solutions.append(perimeter)
+                else:
+                    pass
+
+end_time = time.time()
+print(statistics.mode(solutions))
+print(f"Elapsed Time: {end_time-start_time}s")
