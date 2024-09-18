@@ -1,0 +1,73 @@
+import time
+start_time = time.time()
+
+
+def SieveOfEratosthenes(n):  #used for generating a list of prime numbers up to n
+    # Create a list to store boolean values representing whether each number is prime or not
+    prime_numbers = [True for i in range(n + 1)]
+
+    # Mark 0 and 1 as not prime numbers, as they are not
+    prime_numbers[0] = prime_numbers[1] = False
+
+    # Create an empty list to store the prime numbers
+    prime_numbers_list = []
+
+    # Start looping from 2, the first prime number
+    p = 2
+    while p <= (n ** 0.5):
+        # If the current number is marked as prime
+        if prime_numbers[p] == True:
+            # Add it to the list of prime numbers
+            prime_numbers_list.append(p)
+            # Mark all multiples of p as not prime
+            # Start from p * p, because all smaller multiples would have already been marked by smaller prime numbers
+            # For example, if p is 5, we start from 25, because all smaller multiples like 10, 15, 20 would have been marked by 2, 3, etc.
+            for i in range(p * p, n + 1, p):
+                # Mark i as not prime
+                prime_numbers[i] = False
+        # Move on to the next number
+        p += 1
+
+    # Loop through the remaining numbers to find any additional prime numbers
+    for p in range(int(n ** 0.5) + 1, n + 1):
+        # If the current number is still marked as prime
+        if prime_numbers[p]:
+            # Add it to the list of prime numbers
+            prime_numbers_list.append(p)
+
+    # Return the list of prime numbers
+    return prime_numbers_list
+
+
+prime_list = SieveOfEratosthenes(10**7)
+def prime_factorisation(number,prime_list):
+
+    divisor_list = []
+
+    while number > 1:
+        for prime in prime_list:
+            if number % prime == 0:
+                divisor_list.append(prime)
+                number //= prime
+                break
+
+    return divisor_list
+
+def unique_primes(number):
+    prime_factorisation_list = prime_factorisation(number,prime_list)  # get the list of prime factors
+
+    unique_prime_factors = list(set(prime_factorisation_list))  # get unique prime factors
+    return unique_prime_factors
+
+consecutive_status = False # we haven't yet found 4 consecutive integers that have 4 unique prime factors
+n = 1 #start at n=1
+while consecutive_status == False:
+    number_1,number_2,number_3,number_4 = (n),(n+1),(n+2),(n+3)
+    if len(unique_primes(number_1)) >= 4 and len(unique_primes(number_2)) >= 4 and len(unique_primes(number_3)) >= 4 and len(unique_primes(number_4)) >= 4:
+        print(number_1)
+        consecutive_status = True
+    else: #look at the next consecutive numbers
+        n += 1
+end_time = time.time()
+
+print(f"Elapsed time : {end_time-start_time}s")
