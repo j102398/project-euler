@@ -1,0 +1,43 @@
+import time
+# Upper bound for the problem
+upper_bound = 28123
+start_time = time.time()
+
+
+
+# Step 1: Define the function to calculate divisors
+def divisors(n):
+    divisor_list = [1]
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            divisor_list.append(i)
+            if i != n // i:
+                divisor_list.append(n // i)
+    return divisor_list
+
+# Step 2: Find all abundant numbers
+abundant_numbers = []
+for i in range(1, upper_bound + 1):
+    if sum(divisors(i)) > i:
+        abundant_numbers.append(i)
+
+#create a boolean list to track sums of two abundant numbers
+can_be_written_as_abundant_sum = [False] * (upper_bound + 1)
+
+#mark numbers that can be written as the sum of two abundant numbers
+for i in range(len(abundant_numbers)):
+    for j in range(i, len(abundant_numbers)):
+        abundant_sum = abundant_numbers[i] + abundant_numbers[j]
+        if abundant_sum <= upper_bound:
+            can_be_written_as_abundant_sum[abundant_sum] = True
+        else:
+            break
+
+false_numbers = [] #the indexes of the numbers from the list that cannot be written as an abundant number
+for number, true_or_false in enumerate(can_be_written_as_abundant_sum):
+    if true_or_false == False:
+        false_numbers.append(number)
+
+print(sum(false_numbers))
+end_time = time.time()
+print(f"Elapsed time : {end_time-start_time}s")
