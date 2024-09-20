@@ -1,0 +1,77 @@
+import time
+
+start_time = time.time()
+
+
+def SieveOfEratosthenes(n):
+    prime_numbers = [True for i in range(n + 1)]
+    prime_numbers[0] = prime_numbers[1] = False
+
+    prime_numbers_list = []
+    p = 2
+    while p <= (n ** 0.5):
+        if prime_numbers[p] == True:
+            prime_numbers_list.append(p)
+            for i in range(p * p, n + 1, p):
+                prime_numbers[i] = False
+        p += 1
+
+    for p in range(int(n ** 0.5) + 1, n + 1):
+        if prime_numbers[p]:
+            prime_numbers_list.append(p)
+
+    return prime_numbers_list
+
+
+prime_set = set(SieveOfEratosthenes(10 ** 7))
+trunacatable_primes_list = []
+
+
+def truncatable_primes_right(n):
+    n_str = str(n)
+    if n in prime_set:
+        while len(n_str) != 1:
+            n_str = n_str[:-1]
+            if int(n_str) in prime_set:
+                continue
+            else:
+                return False
+                break
+        return True
+    else:
+        return False
+
+
+def truncatable_primes_left(n):
+    n_str = str(n)
+    if n in prime_set:
+        while len(n_str) != 1:
+            n_str = n_str[1:]
+            if int(n_str) in prime_set:
+                continue
+            else:
+                return False
+                break
+        return True
+    else:
+        return False
+
+
+n = 2
+
+#using the fact that primes >2 appear in the form 6n±1
+while len(trunacatable_primes_list) < 11:
+    prime_1 = (6 * n) - 1
+    prime_2 = (6 * n) + 1
+    if prime_1 in prime_set:
+        if truncatable_primes_left(prime_1) == True and truncatable_primes_right(prime_1) == True:
+            trunacatable_primes_list.append(prime_1)
+    if prime_2 in prime_set:
+        if truncatable_primes_left(prime_2) == True and truncatable_primes_right(prime_2) == True:
+            trunacatable_primes_list.append(prime_2)
+
+    n += 1
+
+end_time = time.time()
+print(sum(trunacatable_primes_list))
+print(f"Elapsed time : {end_time - start_time}s")
